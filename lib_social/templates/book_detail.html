@@ -1,0 +1,94 @@
+{% extends 'base_layout.html' %}
+{% load static thumbnail comments threadedcomments_tags %}
+
+{% block content %}
+
+  <div class="grid_7">
+    <h3>{{ book.title }}</h3>
+    <div class="blog">
+      <time datetime="2014-10-01">15<span>Feb</span></time>
+      <div class="extra_wrapper">
+        <div class="text1 col1"><a href="{% url 'book-list-author' book.author.id %}">{{ book.author.name }}</a></div>
+        Category: <a href="{% url 'book-list' book.category.id %}"><strong>{{ book.category.title }}</strong></a>
+      </div>
+
+      {% if book.ratings.exists %}
+        <div class="clear"></div>
+        <div class="clear"></div>
+        <h2>
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'book-rate' book.id user_id '1' %}">{% if book.get_rating < 1 %}☆{% else %}★{% endif %}</a>
+            <a href="{% url 'book-rate' book.id user_id '2' %}">{% if book.get_rating < 2 %}☆{% else %}★{% endif %}</a>
+            <a href="{% url 'book-rate' book.id user_id '3' %}">{% if book.get_rating < 3 %}☆{% else %}★{% endif %}</a>
+            <a href="{% url 'book-rate' book.id user_id '4' %}">{% if book.get_rating < 4 %}☆{% else %}★{% endif %}</a>
+            <a href="{% url 'book-rate' book.id user_id '5' %}">{% if book.get_rating < 5 %}☆{% else %}★{% endif %}</a>
+          {% else %}
+            {% if book.get_rating < 1 %}☆{% else %}★{% endif %}
+            {% if book.get_rating < 2 %}☆{% else %}★{% endif %}
+            {% if book.get_rating < 3 %}☆{% else %}★{% endif %}
+            {% if book.get_rating < 4 %}☆{% else %}★{% endif %}
+            {% if book.get_rating < 5 %}☆{% else %}★{% endif %}
+          {% endif %}
+        </h2>
+      {% endif %}
+
+      {% if request.user.is_authenticated %}
+        {% if book.booker %}
+          <div class="clear"></div>
+          {% if book.booker.id == user_id %}
+            <a href="{% url 'book-unbook' book.id %}" class="btn btn-book booked">UNBOOK</a>
+          {% else %}
+            <a class="btn btn-book booked">BOOKED</a>
+          {% endif %}
+        {% else %}
+          <div class="clear"></div>
+          <a href="{% url 'book-book' book.id user_id %}" class="btn btn-book">BOOK</a>
+        {% endif %}
+      {% endif %}
+
+      <div class="clear"></div>
+      <img
+          {% if book.image %}
+          src="{% thumbnail book.image 540x313 crop %}"
+          {% else %}
+          src="{% static 'images/page4_img1.jpg' %}"
+          {% endif %}
+          alt="" class="img_inner">
+      <p>{{ book.description }}</p>
+      <br>
+    </div>
+  </div>
+
+  <div class="grid_3 prefix_1">
+    <h3 class="head1">SUGGESTED BOOKS</h3>
+    <ul class="list">
+      <li><a href="#">Programming in C#: Beginner </a></li>
+      <li><a href="#">Programming in C#: Intermediate </a></li>
+      <li><a href="#">Programming in Java: Beginner </a></li>
+      <li><a href="#">Programming in Java: Intermediate </a></li>
+      <li><a href="#">Object oriented programming in Python </a></li>
+      <li><a href="#">Object oriented programming in Java </a></li>
+    </ul>
+    <h3 class="head1">ARchives</h3>
+    <ul class="list">
+      <li><a href="#">November 2016</a></li>
+      <li><a href="#">October 2016</a></li>
+      <li><a href="#">September 2016</a></li>
+      <li><a href="#">August 2016</a></li>
+      <li><a href="#">July 2016</a></li>
+    </ul>
+  </div>
+
+  <div class="grid_7">
+    <h4>Comments:</h4>
+  </div>
+  <div class="grid_12">
+    <div style="margin-bottom: 0px;">
+      {% render_comment_list for book %}
+    </div>
+    <div>
+      <h4>Leave a comment</h4>
+      {% render_comment_form for book %}
+    </div>
+  </div>
+{% endblock content %}

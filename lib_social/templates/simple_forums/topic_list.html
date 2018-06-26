@@ -1,0 +1,30 @@
+{% extends 'simple_forums/base.html' %}
+{% load static thumbnail %}
+
+{% block page_title %}Home{% endblock %}
+
+{% block content %}
+  <div class="grid_8">
+    <h3>Topics</h3>
+    {% for topic in topic_list %}
+      <div class="block2">
+        <div class="extra_wrapper">
+          <div class="text1 col1"><a href="{% url 'simple-forums:thread-list' topic.pk topic.slug %}">{{ topic.title }}</a></div>
+          <p>{{ topic.description|truncatechars:200 }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>No topics found.</p>
+    {% endfor %}
+  </div>
+  <div class="grid_3 prefix_1">
+    <h5>Top topics</h5>
+    <ul class="list">
+      <li><a href="#">What subjects does Mechatronics have?</a></li>
+      <li><a href="#">Life in Kuala Lumpur and how to efficiently spend time</a></li>
+      <li><a href="#">Any books on Python programming in our lib?</a></li>
+      <li><a href="#">Can I take more than 1 book at a time?</a></li>
+    </ul>
+    <a href="#" class="link1">VIEW A<span class="low">ll</span></a>
+  </div>
+{% endblock content %}

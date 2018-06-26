@@ -1,0 +1,17 @@
+<div class="blog">
+  <div class="extra_wrapper">
+    <div class="text1 col1">
+      <a href="{% url 'simple-forums:thread-detail' thread.topic.pk thread.topic.slug thread.pk thread.slug %}">
+        {% if thread.sticky %}<span style="color: #128204;">Sticky</span> {% endif %}
+        {{ thread.title }}
+      </a>
+    </div>
+    {% comment %}
+    Category: <a href="{% url 'book-list' book.category.id %}"><strong>{{ book.category.title }}</strong></a>
+    {% endcomment %}
+  </div>
+  <div class="clear"></div>
+  <p colspan="2">{{ thread.num_replies }} <span>replies</span></p>
+  <p colspan="2">{{ thread.time_last_activity }}</p>
+  <br>
+</div>

@@ -1,0 +1,86 @@
+{% extends 'home_base.html' %}
+{% load static thumbnail %}
+
+{% block content %}
+  
+  {% for category in categories %}
+    <div class="grid_4">
+      <div class="banner">
+        <img
+            {% if category.image %}
+            src="{% thumbnail category.image 300x364 crop %}"
+            {% else %}
+            src="{% static 'images/ban_img1.jpg' %}"
+            {% endif %}
+            alt="">
+        <div class="label" style="color: #000;">
+          <div class="title">{{ category.title }}</div>
+          <div class="price">FOR<span>{{ category.level }}</span></div>
+          <a href="{% url 'book-list' category.id %}">LEARN MORE</a>
+        </div>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+      <div class="grid_12" style="margin-bottom: 20px;"></div>
+    {% endif %}
+  {% endfor %}
+  <div class="clear"></div>
+  <div class="grid_6">
+    <h3>About Asia Pacific University</h3>
+    <div style="max-width: 190px; max-height: 100px;">
+      <img src="{% static 'images/logo.png' %}" alt="" class="img_inner fleft">
+    </div>
+    <div class="extra_wrapper">
+      <p>Lorem ipsum dolor sit ere amet, consectetur ipiscin.</p>
+      In mollis erat mattis neque facilisis, sit ametiol
+    </div>
+    <div class="clear cl1"></div>
+    <p>Find the detailed description of this university at <a href="http://www.apu.edu.my/">http://www.apu.edu.my/</a>.</p>
+    <p><span class="col1"><a href="http://www.apu.edu.my/" rel="nofollow">Asia Pacific University</a></span> offers you a variety of courses that are perfect for business, IT or engineering spheres.</p>
+    Proin pharetra luctus diam, a scelerisque eros convallis
+  </div>
+  <div class="grid_5 prefix_1">
+    <h4>Students’ Quotes</h4>
+    <blockquote class="bq1">
+      <img src="{% static 'images/page1_img2.jpg' %}" alt="" class="img_inner noresize fleft">
+      <div class="extra_wrapper">
+        <p>Duis massa elit, auctor non pellentesque vel, aliquet sit amet erat. Nullam eget dignissim nisi, aliquam feugiat nibh. </p>
+        <div class="alright">
+	  <div class="col1">Miranda Brown</div>
+	  <a href="#" class="btn">More</a>
+        </div>
+      </div>
+    </blockquote>
+  </div>
+  <div class="grid_12">
+    <h3 class="head1">Latest News</h3>
+  </div>
+  <div class="grid_4">
+    <div class="block1">
+      <time datetime="2014-01-01">10<span>Jan</span></time>
+      <div class="extra_wrapper">
+        <div class="text1 col1"><a href="#">Aliquam nibh</a></div>
+        Proin pharetra luctus diam, any scelerisque eros convallisumsan. Maecenas vehicula egestas
+      </div>
+    </div>
+  </div>
+  <div class="grid_4">
+    <div class="block1">
+      <time datetime="2014-01-01">21<span>Jan</span></time>
+      <div class="extra_wrapper">
+        <div class="text1 col1"><a href="#">Etiam dui eros</a></div>
+        Any scelerisque eros vallisumsan. Maecenas vehicula egestas natis. Duis massa elit, auctor non
+      </div>
+    </div>
+  </div>
+  <div class="grid_4">
+    <div class="block1">
+      <time datetime="2014-01-01">15<span>Feb</span></time>
+      <div class="extra_wrapper">
+        <div class="text1 col1"><a href="#">uamnibh Edeto</a></div>
+        Ros convallisumsan. Maecenas vehicula egestas venenatis. Duis massa elit, auctor non
+      </div>
+    </div>
+  </div>
+  
+{% endblock content %}

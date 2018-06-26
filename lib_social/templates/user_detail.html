@@ -1,0 +1,47 @@
+{% extends 'base_layout.html' %}
+{% load static thumbnail %}
+
+{% block content %}
+  <div class="grid_8">
+    <h3>{{ user }}</h3>
+    <h5 style="padding-top: 40px;">Booked</h5>
+    {% for book in user.booked.all %}
+      <div class="block2">
+        <img
+            {% if book.image %}
+            src="{% thumbnail book.image 50x50 crop %}"
+            {% else %}
+            src="{% static 'images/page3_img1.jpg' %}"
+            {% endif %}
+            alt="" class="img_inner fleft" style="max-height: 50px; max-width: 50px;">
+        <div class="extra_wrapper">
+          <div class="text1 col1"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></div>
+          <p>Author: <strong>{{ book.author.name }}</strong></p>
+          <p>{{ book.description|truncatechars:200 }}</p>
+          <a href="{% url 'book-detail' book.id %}" class="link1">LEARN MORE</a>
+        </div>
+      </div>
+    {% endfor %}
+    <h5 style="padding-top: 40px;">Comments</h5>
+    {% for message in user.message_set.all %}
+      <div class="block2">
+        <div class="extra_wrapper">
+          <div class="text1 col1"><a href="{% url 'simple-forums:thread-detail' message.thread.topic.pk message.thread.topic.slug message.thread.id message.thread.slug %}">
+            {{ message.get_title }}</a></div>
+          <p>{{ message.body }}</p>
+          <hr>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="grid_3 prefix_1">
+    <h5>Suggested categories</h5>
+    <ul class="list">
+      <li><a href="#">Business IT</a></li>
+      <li><a href="#">Engineering in Mechatronics</a></li>
+      <li><a href="#">IT (Intelligent systems)</a></li>
+      <li><a href="#">Accounting</a></li>
+    </ul>
+    <a href="#" class="link1">VIEW A<span class="low">ll</span></a>
+  </div>
+{% endblock content %}

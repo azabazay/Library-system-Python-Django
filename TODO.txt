@@ -1,0 +1,11 @@
+LIBRARY:
+
+* BOOKS
+
+* SOCIAL PROFILE (with user history: achievments)
+
+* COMMENTING SYSTEM
+
+* BOOKS RATING
+
+* FORUM

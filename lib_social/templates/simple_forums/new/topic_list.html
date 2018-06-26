@@ -1,0 +1,37 @@
+{% extends 'base_layout.html' %}
+{% load static thumbnail %}
+
+{% block content %}
+  <div class="grid_8">
+    <h3>Topics</h3>
+    {% for topic in topic_list %}
+      <div class="block2">
+        <div class="extra_wrapper">
+          <div class="text1 col1"><a href="{% url 'simple-forums:thread-list' topic.pk topic.slug %}">{{ topic.title }}</a></div>
+          <p>{{ topic.description|truncatechars:200 }}</p>
+          <a href="{% url 'simple-forums:thread-list' topic.pk topic.slug %}" class="link1">OPEN TOPIC</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No topics found.</p>
+    {% endfor %}
+  </div>
+  <div class="grid_3 prefix_1">
+    <h5>CHOOse the country</h5>
+    <ul class="list">
+      <li><a href="#">Albania</a></li>
+      <li><a href="#">American Samoa</a></li>
+      <li><a href="#">Antarctica</a></li>
+      <li><a href="#">Argentina</a></li>
+      <li><a href="#">Armenia</a></li>
+      <li><a href="#">Australia</a></li>
+      <li><a href="#">Austria</a></li>
+      <li><a href="#">Bahrain</a></li>
+      <li><a href="#">Barbados</a></li>
+      <li><a href="#">Belgium</a></li>
+      <li><a href="#">Belize</a></li>
+      <li><a href="#">Bermudas</a></li>
+    </ul>
+    <a href="#" class="link1">VIEW A<span class="low">ll</span></a>
+  </div>
+{% endblock content %}

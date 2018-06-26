@@ -1,0 +1,50 @@
+{% extends 'simple_forums/base.html' %}
+{% load static thumbnail comments threadedcomments_tags %}
+
+{% block content %}
+
+  <div class="grid_7">
+    {% if thread_list or sticky_thread_list %}
+      <h3>THREADS</h3>
+      <div class="sorting">
+        <h5 style="padding-top: 20px;">Sort By:</h5>
+
+        <ul>
+
+	  {% for option in sort_options %}
+
+	    <li><a href="{{ request.url }}?sort={{ option }}{% if sort_current == option and not sort_reversed %}&rev=true{% endif %}">{% if sort_current == option %}<i class="fa {% if sort_reversed %}fa-caret-down{% else %}fa-caret-up{% endif %}"></i> {% endif %}{{ option|title }}</a></li>
+
+	  {% endfor %}
+
+        </ul>
+      </div>
+      <div style="padding-top: 40px;">
+        {% for thread in sticky_thread_list %}
+
+	  {% include 'simple_forums/snippets/render_thread_listing.html' %}
+
+        {% endfor %}
+
+        {% for thread in thread_list %}
+
+	  {% include 'simple_forums/snippets/render_thread_listing.html' %}
+
+        {% endfor %}
+      </div>
+
+    {% endif %}
+
+  </div>
+
+  <div class="grid_3 prefix_1">
+    <h5>Top topics</h5>
+    <ul class="list">
+      <li><a href="#">What subjects does Mechatronics have?</a></li>
+      <li><a href="#">Life in Kuala Lumpur and how to efficiently spend time</a></li>
+      <li><a href="#">Any books on Python programming in our lib?</a></li>
+      <li><a href="#">Can I take more than 1 book at a time?</a></li>
+    </ul>
+    <a href="#" class="link1">VIEW A<span class="low">ll</span></a>
+  </div>
+{% endblock content %}
